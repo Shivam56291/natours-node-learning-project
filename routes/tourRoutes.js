@@ -3,8 +3,17 @@ const contoller = require('./../controllers/tourController');
 
 const router = express.Router();
 
-router.route('/').get(contoller.getAllTours).post(contoller.createTour);
+router.param('id', contoller.checkID);
 
-router.route('/:id').get(contoller.getTour).patch(contoller.updateTour).delete(contoller.deleteTour);
+router
+  .route('/')
+  .get(contoller.getAllTours)
+  .post(contoller.checkBody, contoller.createTour);
+
+router
+  .route('/:id')
+  .get(contoller.getTour)
+  .patch(contoller.updateTour)
+  .delete(contoller.deleteTour);
 
 module.exports = router;
