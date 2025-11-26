@@ -6,9 +6,10 @@ const router = express.Router();
 // router.param('id', contoller.checkID);
 
 router
-  .route('/')
-  .get(contoller.getAllTours)
-  .post(contoller.createTour);
+  .route('/top-5-cheap')
+  .get(contoller.aliasTopTours, contoller.getAllTours);
+
+router.route('/').get(contoller.getAllTours).post(contoller.createTour);
 
 router
   .route('/:id')
