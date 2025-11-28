@@ -26,25 +26,17 @@ app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
 // For log error if route not found
-console.log('Registered routes:');
-app._router.stack.forEach((r) => {
-  if (r.route && r.route.path) {
-    console.log(r.route.path, r.route.methods);
-  }
-});
+// console.log('Registered routes:');
+// app._router.stack.forEach((r) => {
+//   if (r.route && r.route.path) {
+//     console.log(r.route.path, r.route.methods);
+//   }
+// });
 
 app.all('*', (req, res, next) => {
+  console.log('Unknown route accessed:', req.originalUrl); // 👈 This will log
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
-
-//
-console.log('Registered routes:');
-app._router.stack.forEach((r) => {
-  if (r.route && r.route.path) {
-    console.log(r.route.path, r.route.methods);
-  }
-});
-//
 
 app.use(globalErrorHandler);
 
