@@ -33,7 +33,7 @@ app.use('/api/v1/users', userRouter);
 //   }
 // });
 
-app.all('*', (req, res, next) => {
+ app.all('*', (req, res, next) => {
   console.log('Unknown route accessed:', req.originalUrl); // 👈 This will log
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
