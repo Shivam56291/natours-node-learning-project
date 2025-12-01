@@ -78,6 +78,36 @@ const tourSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    startLocation: {
+      // GeoJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -112,9 +142,17 @@ tourSchema.pre(/^find/, function () {
   this.start = Date.now();
 });
 
+tourSchema.pre(/^find/, function () {
+  this.populate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt',
+  });
+});
+
 tourSchema.post(/^find/, function (docs) {
   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
 });
+
 
 // AGGREGATION MIDDLEWARE
 tourSchema.pre('aggregate', function () {
