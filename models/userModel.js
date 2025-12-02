@@ -63,13 +63,13 @@ userSchema.pre('save', async function () {
   this.passwordConfirm = undefined;
 });
 
-userSchema.pre(/^find/, function () {
-  this.find({ active: { $ne: false } });
-});
-
 userSchema.post('save', function () {
   if (!this.isModified('password') || this.isNew) return;
   this.passwordChangedAt = Date.now() - 1000;
+});
+
+userSchema.pre(/^find/, function () {
+  this.find({ active: { $ne: false } });
 });
 
 userSchema.methods.correctPassword = async function (
