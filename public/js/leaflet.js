@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const displayMap = (locations) => {
+export const displayMap = (locations) => {
   const map = L.map('map', { scrollWheelZoom: false });
 
   // Load OpenStreetMap tiles
@@ -71,9 +71,4 @@ const displayMap = (locations) => {
   observer.observe(mapElement);
 };
 
-// Auto load map from data
-const mapBox = document.getElementById('map');
-if (mapBox) {
-  const locations = JSON.parse(mapBox.dataset.locations);
-  displayMap(locations);
-}
+

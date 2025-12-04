@@ -6,6 +6,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const path = require('path');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -22,9 +24,12 @@ app.set('views', path.join(__dirname, 'views'));
 // 1) Global MIDDLEWARES
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Set security HTTP headers
-// Set security HTTP headers
+app.use(
+  cors({
+    origin: 'http://localhost:3000', // ✅ frontend origin
+    credentials: true, // ✅ allow cookies
+  })
+);
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -33,7 +38,12 @@ app.use(
 
         baseUri: ["'self'"],
 
-        scriptSrc: ["'self'", 'https://unpkg.com', 'https://api.mapbox.com'],
+        scriptSrc: [
+          "'self'",
+          'https://unpkg.com',
+          'https://api.mapbox.com',
+          'https://cdnjs.cloudflare.com',
+        ],
 
         styleSrc: [
           "'self'",
@@ -64,7 +74,13 @@ app.use(
           'https://*.openstreetmap.org',
           'https://api.mapbox.com',
           'https://*.cloudflare.com',
-          'https://unpkg.com', // ✅ FIX FOR leaflet.js.map
+          'https://cdnjs.cloudflare.com',
+          'https://unpkg.com',
+          'http://127.0.0.1:3000',
+          'http://localhost:3000',
+          // ✅ ADD THESE FOR PARCEL HMR
+          'ws://localhost:*',
+          'ws://127.0.0.1:*',
         ],
 
         objectSrc: ["'none'"],
@@ -89,6 +105,8 @@ app.use('/api', limiter);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
