@@ -140,14 +140,6 @@ app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
-// For log error if route not found
-// console.log('Registered routes:');
-// app._router.stack.forEach((r) => {
-//   if (r.route && r.route.path) {
-//     console.log(r.route.path, r.route.methods);
-//   }
-// });
-
 app.all('*', (req, res, next) => {
   console.log('Unknown route accessed:', req.originalUrl); // 👈 This will log
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

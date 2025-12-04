@@ -107,7 +107,7 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
         400
       )
     );
-    return; 
+    return;
   }
 
   const tours = await Tour.find({
@@ -134,9 +134,9 @@ exports.getDistances = catchAsync(async (req, res, next) => {
         400
       )
     );
-    return; 
+    return;
   }
-  
+
   const distances = await Tour.aggregate([
     {
       $geoNear: {
@@ -146,6 +146,10 @@ exports.getDistances = catchAsync(async (req, res, next) => {
         },
         distanceField: 'distance',
         distanceMultiplier: unit === 'mi' ? 0.000621371 : 0.001,
+
+        query: {
+          secretTour: { $ne: true },
+        },
       },
     },
     {
