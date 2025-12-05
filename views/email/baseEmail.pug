@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    title= subject
+
+    include _style
+
+  body
+    .container
+      .card
+        .header
+          img(src='cid:logoSmall' alt='Natours logo')
+          div.header-title Natours
+      
+        block content
+
+      .footer
+        | © #{new Date().getFullYear()} Natours — All rights reserved
+        br
+        | Shivam Kumar, CEO
+        br
+        a(href='#') Manage Notifications
+        |  • 
+        a(href='#') Unsubscribe
