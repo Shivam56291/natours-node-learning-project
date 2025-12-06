@@ -4,6 +4,7 @@ import { displayMap } from './leaflet';
 import { login, logout, signup } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
+import { showAlert } from './alerts';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
@@ -75,3 +76,16 @@ if (bookBtn)
     const tourId = e.target.dataset.tourId;
     bookTour(tourId);
   });
+
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alertMessage) showAlert('success', alertMessage, 20);
+
+// If alert is about booking success, redirect to my-tours after 2s to clean URL
+if (window.location.search.includes('alert=booking')) {
+  setTimeout(() => {
+    // location.assign('/my-tours'); // Clean Redirect
+    window.history.replaceState(null, '', '/my-tours'); // Or verify user wants actual redirect? "redirect to mybookings section"
+    // To match "redirect" behavior exactly like a page load:
+    location.assign('/my-tours');
+  }, 2000); // 2 seconds
+}

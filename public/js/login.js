@@ -33,7 +33,7 @@ export const logout = async () => {
       url: '/api/v1/users/logout',
       withCredentials: true,
     });
-    if ((res.data.status = 'success')) location.reload(true);
+    if ((res.data.status = 'success')) location.assign('/');
   } catch (err) {
     console.log(err.response);
     showAlert('error', 'Error logging out! Try again.');
@@ -51,6 +51,7 @@ export const signup = async (name, email, password, passwordConfirm) => {
         password,
         passwordConfirm,
       },
+      withCredentials: true,
     });
 
     if (res.data.status === 'success') {
