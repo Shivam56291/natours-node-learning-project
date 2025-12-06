@@ -8,6 +8,12 @@
   <img src="https://img.shields.io/badge/Stripe-Payments-violet" alt="Stripe">
 </p>
 
+<p align="center">
+  <a href="https://natours-node-learning-project.onrender.com/">
+    <img src="https://img.shields.io/badge/LIVE_DEMO-Visit_Site_🚀-20bf6b?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo" height="40" />
+  </a>
+</p>
+
 > **Note:** This is a **Learning Project** demonstrating a complete full-stack workflow, from API design to server-side rendering and payment integration.
 
 **Natours** is a modern application for booking customizable nature tours. It serves as a showcase for advanced Node.js concepts including authentication, security, payments, and data modeling.
@@ -84,4 +90,3 @@ This project implements the following technologies defined in `package.json`:
 <p align="center">
   <i>Built by <b>Shivam</b>, BCA 5th Sem</i>
 </p>
-
