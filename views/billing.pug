@@ -1,0 +1,54 @@
+extends base
+
+block content
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('#', 'Settings', 'settings', true)
+          +navItem('/my-tours', 'My bookings', 'briefcase')
+          +navItem('/my-reviews', 'My reviews', 'star')
+          +navItem('/billing', 'Billing', 'credit-card', true)
+
+        - if (user.role === 'admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('#', 'Manage tours', 'map')
+              +navItem('#', 'Manage users', 'users')
+              +navItem('#', 'Manage reviews', 'star')
+              +navItem('#', 'Manage bookings', 'briefcase')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Billing History
+          
+          if bookings.length > 0
+            table.billing-table
+              thead
+                tr
+                  th Date
+                  th Tour
+                  th Amount
+                  th Status
+              tbody
+                each booking in bookings
+                  tr
+                    td= booking.createdAt.toLocaleString('en-us', {day: 'numeric', month: 'short', year: 'numeric'})
+                    td= booking.tour.name
+                    td= `$${booking.price}`
+                    td
+                      span.tag.tag--paid Paid
+          else
+            .billing-empty
+              svg.billing-empty__icon
+                use(xlink:href='/img/icons.svg#icon-credit-card')
+              p.billing-empty__text You don't have any billing history yet.
+              a.btn.btn--small.btn--green(href='/') Browse Tours
+
+mixin navItem(link, text, icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      svg
+        use(xlink:href=`/img/icons.svg#icon-${icon}`)
+      | #{text}

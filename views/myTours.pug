@@ -1,0 +1,43 @@
+extends base
+include _tourCard
+
+block content
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('#', 'Settings', 'settings', true)
+          +navItem('/my-tours', 'My bookings', 'briefcase', true)
+          +navItem('/my-reviews', 'My reviews', 'star')
+          +navItem('/billing', 'Billing', 'credit-card')
+
+        - if (user.role === 'admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('#', 'Manage tours', 'map')
+              +navItem('#', 'Manage users', 'users')
+              +navItem('#', 'Manage reviews', 'star')
+              +navItem('#', 'Manage bookings', 'briefcase')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md My Bookings
+          
+          if tours.length > 0
+            .card-container
+              each tour in tours
+                +tourCard(tour)
+          else
+            .billing-empty
+              svg.billing-empty__icon
+                use(xlink:href='/img/icons.svg#icon-map')
+              p.billing-empty__text You haven't booked any tours yet.
+              a.btn.btn--small.btn--green(href='/') Browse Tours
+
+mixin navItem(link, text, icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      svg
+        use(xlink:href=`/img/icons.svg#icon-${icon}`)
+      | #{text}

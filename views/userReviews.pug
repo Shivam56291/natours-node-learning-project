@@ -1,0 +1,68 @@
+extends base
+
+mixin reviewCard(review)
+  .reviews__card
+    .reviews__avatar
+      img.reviews__avatar-img(
+        src=`/img/tours/${review.tour.imageCover}`,
+        alt=`${review.tour.name}`
+      )
+      h6.reviews__user= review.tour.name
+
+    p.reviews__text= review.review
+    .reviews__rating
+      each star in [1, 2, 3, 4, 5]
+        svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
+          use(xlink:href='/img/icons.svg#icon-star')
+
+block content
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('#', 'Settings', 'settings', true)
+          +navItem('/my-tours', 'My bookings', 'briefcase')
+          +navItem('/my-reviews', 'My reviews', 'star', true)
+          +navItem('/billing', 'Billing', 'credit-card')
+
+        - if (user.role === 'admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('#', 'Manage tours', 'map')
+              +navItem('#', 'Manage users', 'users')
+              +navItem('#', 'Manage reviews', 'star')
+              +navItem('#', 'Manage bookings', 'briefcase')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md My Reviews
+          
+          if reviews.length > 0
+            .card-container
+              each review in reviews
+                +reviewCard(review)
+            
+            if totalPages > 1
+              .pagination
+                if currentPage > 1
+                  a.btn-text.pagination__btn--prev(href=`/my-reviews?page=${currentPage - 1}`) &larr; Previous
+                
+                span.pagination__text Page #{currentPage} of #{totalPages}
+                
+                if currentPage < totalPages
+                  a.btn-text.pagination__btn--next(href=`/my-reviews?page=${currentPage + 1}`) Next &rarr;
+
+          else
+             .billing-empty
+                svg.billing-empty__icon
+                  use(xlink:href='/img/icons.svg#icon-star')
+                p.billing-empty__text You haven't written any reviews yet.
+                a.btn.btn--small.btn--green(href='/') Browse Tours
+
+mixin navItem(link, text, icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      svg
+        use(xlink:href=`/img/icons.svg#icon-${icon}`)
+      | #{text}

@@ -3,6 +3,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const User = require('./../models/userModel');
 const Booking = require('./../models/bookingModel');
+const Review = require('./../models/reviewModel');
 
 exports.getOverview = catchAsync(async (req, res) => {
   // 1) GET tour data from collection
@@ -56,12 +57,47 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   const bookings = await Booking.find({ user: req.user.id });
 
   // 2) Find tours with the returned IDs
-  const tourIDs = bookings.map(el => el.tour);
+  const tourIDs = bookings.map((el) => el.tour);
   const tours = await Tour.find({ _id: { $in: tourIDs } });
 
-  res.status(200).render('overview', {
+  res.status(200).render('myTours', {
     title: 'My Tours',
     tours,
+  });
+});
+
+exports.getMyReviews = catchAsync(async (req, res, next) => {
+  // 1) Get page and limit
+  const page = req.query.page * 1 || 1;
+  const limit = req.query.limit * 1 || 6;
+  const skip = (page - 1) * limit;
+
+  // 2) Find reviews with pagination
+  const reviews = await Review.find({ user: req.user.id })
+    .skip(skip)
+    .limit(limit)
+    .populate({
+      path: 'tour',
+      select: 'name imageCover slug',
+    });
+
+  const totalReviews = await Review.countDocuments({ user: req.user.id });
+  const totalPages = Math.ceil(totalReviews / limit);
+
+  res.status(200).render('userReviews', {
+    title: 'My Reviews',
+    reviews,
+    currentPage: page,
+    totalPages,
+  });
+});
+
+exports.getMyBilling = catchAsync(async (req, res, next) => {
+  const bookings = await Booking.find({ user: req.user.id }).populate('tour');
+
+  res.status(200).render('billing', {
+    title: 'My Billing',
+    bookings,
   });
 });
 

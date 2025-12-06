@@ -1,3 +1,79 @@
+/* BILLING */
+.billing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+}
+
+.billing-table th,
+.billing-table td {
+  padding: 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.billing-table th {
+  background-color: #f7f7f7;
+  font-weight: 700;
+  color: #777;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tag--paid {
+  background-color: #55c57a;
+  color: #fff;
+}
+
+.billing-empty {
+  text-align: center;
+  padding: 4rem;
+}
+
+.billing-empty__icon {
+  width: 6rem;
+  height: 6rem;
+  fill: #777;
+  margin-bottom: 2rem;
+}
+
+.billing-empty__text {
+  font-size: 1.8rem;
+  color: #777;
+  margin-bottom: 3rem;
+}
+
+.user-view__content .card-container {
+  max-width: none;
+  margin: 0;
+  grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+}
+
+.pagination {
+  margin-top: 4rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pagination__text {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #777;
+}
+
 :root {
   --section-rotate: 9vw;
 }
@@ -25,6 +101,27 @@ html {
   font-size: 62.5%;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 body {
@@ -208,6 +305,10 @@ body {
   transform: translateY(-3px);
   -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
 }
 
 .btn:active {
@@ -923,7 +1024,22 @@ body {
 .nav__el:active {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
-  text-shadow: 0 0.7rem 1rem black;
+  text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+/* Sliding underline effect */
+.nav__el::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #fff;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+.nav__el:hover::after {
+  width: 100%;
 }
 .nav__el:not(:last-child) {
   margin-right: 3rem;
@@ -1099,7 +1215,13 @@ body {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  animation: fadeInUp 0.8s ease-out backwards;
 }
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 2.5rem 5rem rgba(0, 0, 0, 0.15);
+}
+
 .card__header {
   position: relative;
 }
@@ -1259,6 +1381,7 @@ body {
 .form__input:focus {
   outline: none;
   border-bottom: 3px solid #55c57a;
+  padding-left: 2rem;
 }
 .form__input:focus:invalid {
   border-bottom: 3px solid #ff7730;
@@ -1476,4 +1599,29 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Staggered animation for first few cards */
+.card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.heading-primary {
+  animation: fadeInUp 1s ease-out;
+}
+
+.heading-box__group {
+  animation: fadeIn 1.5s ease-out;
 }
