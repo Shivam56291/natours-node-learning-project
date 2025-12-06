@@ -162,9 +162,8 @@ tourSchema.pre(/^find/, function () {
 });
 
 tourSchema.post(/^find/, function (docs) {
-  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
+  // Query timing removed for production
 });
-
 
 // AGGREGATION MIDDLEWARE
 tourSchema.pre('aggregate', function () {

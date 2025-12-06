@@ -12916,7 +12916,7 @@ var login = exports.login = /*#__PURE__*/function () {
           _context.n = 1;
           return (0, _axios.default)({
             method: 'POST',
-            url: 'http://localhost:3000/api/v1/users/login',
+            url: '/api/v1/users/login',
             data: {
               email: email,
               password: password
@@ -12925,7 +12925,6 @@ var login = exports.login = /*#__PURE__*/function () {
           });
         case 1:
           res = _context.v;
-          console.log(res);
           if (res.data.status === 'success') {
             (0, _alerts.showAlert)('success', 'Logged in successfully!');
             window.setTimeout(function () {
@@ -12958,7 +12957,7 @@ var logout = exports.logout = /*#__PURE__*/function () {
           _context2.n = 1;
           return (0, _axios.default)({
             method: 'GET',
-            url: 'http://localhost:3000/api/v1/users/logout',
+            url: '/api/v1/users/logout',
             withCredentials: true
           });
         case 1:
@@ -13002,7 +13001,7 @@ var updateSettings = exports.updateSettings = /*#__PURE__*/function () {
       while (1) switch (_context.p = _context.n) {
         case 0:
           _context.p = 0;
-          url = type === 'password' ? 'http://localhost:3000/api/v1/users/updateMyPassword' : 'http://localhost:3000/api/v1/users/updateMe';
+          url = type === 'password' ? '/api/v1/users/updateMyPassword' : '/api/v1/users/updateMe';
           _context.n = 1;
           return (0, _axios.default)({
             method: 'PATCH',
@@ -13052,7 +13051,7 @@ var bookTour = exports.bookTour = /*#__PURE__*/function () {
         case 0:
           _context.p = 0;
           _context.n = 1;
-          return (0, _axios.default)("http://localhost:3000/api/v1/bookings/checkout-session/".concat(tourId));
+          return (0, _axios.default)("/api/v1/bookings/checkout-session/".concat(tourId));
         case 1:
           session = _context.v;
           _context.n = 2;
@@ -13060,7 +13059,6 @@ var bookTour = exports.bookTour = /*#__PURE__*/function () {
             sessionId: session.data.session.id
           });
         case 2:
-          console.log(res);
           _context.n = 4;
           break;
         case 3:

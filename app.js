@@ -8,6 +8,7 @@ const hpp = require('hpp');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -27,8 +28,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   cors({
-    origin: 'http://localhost:3000', // ✅ frontend origin
-    credentials: true, // ✅ allow cookies
+    origin: true, // Allow same-origin requests (works for Heroku deployment)
+    credentials: true, // Allow cookies
   })
 );
 app.use(
@@ -137,6 +138,8 @@ app.use(
   })
 );
 
+app.use(compression());
+
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -151,7 +154,6 @@ app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*', (req, res, next) => {
-  console.log('Unknown route accessed:', req.originalUrl); // 👈 This will log
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
