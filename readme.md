@@ -1,7 +1,7 @@
 # Natours | Nature Tours API & Web App 🌲⛰️
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Node.js-14%2B-green" alt="Node.js">
+  <img src="https://img.shields.io/badge/Node.js-24%2B-green" alt="Node.js">
   <img src="https://img.shields.io/badge/Express-4.x-blue" alt="Express">
   <img src="https://img.shields.io/badge/MongoDB-Mongoose-forestgreen" alt="MongoDB">
   <img src="https://img.shields.io/badge/Pug-Templates-brown" alt="Pug">
@@ -82,6 +82,6 @@ This project implements the following technologies defined in `package.json`:
 ---
 
 <p align="center">
-  <i>Created with ❤️ by <b>Shivam</b></i><br>
-  <i>(BCA Student, 5th Sem)</i>
+  <i>Built by <b>Shivam</b>, BCA 5th Sem</i>
 </p>
+
