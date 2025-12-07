@@ -44,15 +44,6 @@
 - **API Features**: Advanced filtering, sorting, pagination, and aliasing.
 - **Error Handling**: Centralized error controller for global error management.
 
-### 👨‍💼 Admin Dashboard
-
-- **Role-Based Access**: Admin-only management interface with protected routes.
-- **Manage Tours**: View, edit, and delete tours with comprehensive table view.
-- **Manage Users**: User management with role and status tracking.
-- **Manage Reviews**: Review moderation and deletion capabilities.
-- **Manage Bookings**: Complete booking oversight and management.
-- **Modern UI**: Enhanced table design with gradient headers, hover effects, and responsive layout.
-
 ---
 
 ## 📚 Documentation
@@ -63,7 +54,6 @@ Detailed documentation is available in the `docs/` folder:
 | :--------------------------------------------------- | :--------------------------------------------- |
 | [**🚀 Getting Started**](docs/01-GETTING-STARTED.md) | Setup, Config, and Running the app.            |
 | [**🏗️ Architecture**](docs/02-ARCHITECTURE.md)       | Deep dive into Models, MVC, and API structure. |
-| [**👨‍💼 Admin Dashboard**](docs/04-ADMIN-DASHBOARD.md) | Admin features and management interface guide. |
 | [**👨‍💻 Author**](docs/03-AUTHOR.md)                   | About the creator.                             |
 
 ---

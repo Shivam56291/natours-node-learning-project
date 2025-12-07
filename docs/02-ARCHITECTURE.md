@@ -87,16 +87,13 @@ Handles rendering of `.pug` templates.
 - **getTour**: Renders a single tour detail page.
 - **getLoginForm**, **getAccount**, **getMyTours**: User-specific pages.
 
-### Admin Dashboard (`viewsController.js` + Admin Views)
+### Admin Management
 
-**New Feature**: Complete admin management interface for platform oversight.
+Admin-only interface for complete platform oversight.
 
-- **Protected Routes**: All admin routes are protected by `authController.protect` + `authController.restrictTo('admin')`.
-- **Management Views**:
-  - **getManageTours**: Lists all tours with delete functionality.
-  - **getManageUsers**: User management with role/status visibility.
-  - **getManageReviews**: Review moderation interface.
-  - **getManageBookings**: Booking oversight and management.
+- **Access Control**: Routes protected by RBAC (`restrictTo('admin')`), ensuring only administrators can access management features.
+- **Resource Management**: Full CRUD operations on Tours, Users, Reviews, and Bookings through dedicated management views.
+- **Moderation**: Enables content moderation, user management, and booking oversight.
 
 ## 🔌 API Features
 
