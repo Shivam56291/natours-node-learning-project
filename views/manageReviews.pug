@@ -1,0 +1,49 @@
+extends base
+
+mixin navItem(link, text, icon, active)
+  li(class=`${active ? 'side-nav--active' : ''}`)
+    a(href=`${link}`)
+      svg
+        use(xlink:href=`/img/icons.svg#icon-${icon}`)
+      | #{text}
+
+block content
+  main.main
+    .user-view
+      nav.user-view__menu
+        ul.side-nav
+          +navItem('/me', 'Settings', 'settings')
+          +navItem('/my-tours', 'My bookings', 'briefcase')
+          +navItem('/my-reviews', 'My reviews', 'star')
+          +navItem('/billing', 'Billing', 'credit-card')
+
+        - if (user.role === 'admin')
+          .admin-nav
+            h5.admin-nav__heading Admin
+            ul.side-nav
+              +navItem('/manage-tours', 'Manage tours', 'map')
+              +navItem('/manage-users', 'Manage users', 'users')
+              +navItem('/manage-reviews', 'Manage reviews', 'star', true)
+              +navItem('/manage-bookings', 'Manage bookings', 'briefcase')
+
+      .user-view__content
+        .user-view__form-container
+          h2.heading-secondary.ma-bt-md Manage Reviews
+          
+          table.table
+            thead
+              tr
+                th User
+                th Tour
+                th Rating
+                th Review
+                th Actions
+            tbody
+              each review in reviews
+                tr
+                  td= review.user ? review.user.name : 'Deleted User'
+                  td= review.tour ? review.tour.name : 'Deleted Tour'
+                  td= review.rating
+                  td= review.review.substring(0, 50) + '...'
+                  td
+                    button.btn.btn--tiny.btn--red.delete-review(data-review-id=review.id) Delete

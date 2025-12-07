@@ -1,5 +1,6 @@
 const multer = require('multer');
 const sharp = require('sharp');
+const path = require('path');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -31,7 +32,14 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`public/img/users/${req.file.filename}`);
+    .toFile(
+      path.join(__dirname, '..', 'public', 'img', 'users', req.file.filename)
+    );
+
+  console.log(
+    'Image saved to:',
+    path.join(__dirname, '..', 'public', 'img', 'users', req.file.filename)
+  );
 
   next();
 });

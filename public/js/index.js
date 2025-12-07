@@ -5,6 +5,7 @@ import { login, logout, signup } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
+import { deleteResource } from './admin';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
@@ -88,4 +89,28 @@ if (window.location.search.includes('alert=booking')) {
     // To match "redirect" behavior exactly like a page load:
     location.assign('/my-tours');
   }, 2000); // 2 seconds
+}
+
+// ADMIN DASHBOARD DELEGATION
+const userView = document.querySelector('.user-view');
+
+if (userView) {
+  userView.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-tour')) {
+      const tourId = e.target.dataset.tourId;
+      deleteResource('tours', tourId);
+    }
+    if (e.target.classList.contains('delete-user')) {
+      const userId = e.target.dataset.userId;
+      deleteResource('users', userId);
+    }
+    if (e.target.classList.contains('delete-review')) {
+      const reviewId = e.target.dataset.reviewId;
+      deleteResource('reviews', reviewId);
+    }
+    if (e.target.classList.contains('delete-booking')) {
+      const bookingId = e.target.dataset.bookingId;
+      deleteResource('bookings', bookingId);
+    }
+  });
 }

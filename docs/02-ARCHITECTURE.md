@@ -87,6 +87,17 @@ Handles rendering of `.pug` templates.
 - **getTour**: Renders a single tour detail page.
 - **getLoginForm**, **getAccount**, **getMyTours**: User-specific pages.
 
+### Admin Dashboard (`viewsController.js` + Admin Views)
+
+**New Feature**: Complete admin management interface for platform oversight.
+
+- **Protected Routes**: All admin routes are protected by `authController.protect` + `authController.restrictTo('admin')`.
+- **Management Views**:
+  - **getManageTours**: Lists all tours with delete functionality.
+  - **getManageUsers**: User management with role/status visibility.
+  - **getManageReviews**: Review moderation interface.
+  - **getManageBookings**: Booking oversight and management.
+
 ## 🔌 API Features
 
 The `APIFeatures` class (`utils/apiFeatures.js`) powers our robust query capabilities:

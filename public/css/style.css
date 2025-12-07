@@ -59,6 +59,72 @@
   grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
 }
 
+/* ADMIN DASHBOARD TABLES */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 3rem;
+  font-size: 1.6rem;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: linear-gradient(to right, #7dd56f, #28b487);
+}
+
+.table th {
+  padding: 2rem 2.5rem;
+  text-align: left;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  padding: 2rem 2.5rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1.6rem;
+  color: #555;
+}
+
+.table tbody tr {
+  transition: all 0.3s;
+}
+
+.table tbody tr:hover {
+  background-color: #f9f9f9;
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.btn--tiny {
+  padding: 0.8rem 1.6rem !important;
+  font-size: 1.3rem !important;
+  border-radius: 50px;
+  transition: all 0.3s;
+}
+
+.btn--red {
+  background-color: #eb4d4b;
+  color: #fff;
+}
+
+.btn--red:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1.5rem rgba(235, 77, 75, 0.3);
+}
+
 .pagination {
   margin-top: 4rem;
   text-align: center;

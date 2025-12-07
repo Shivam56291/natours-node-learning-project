@@ -9,7 +9,8 @@ exports.alerts = (req, res, next) => {
   const { alert } = req.query;
 
   if (alert === 'booking') {
-    res.locals.alert = 'Your booking was successful! Please check your email for a confirmation. If your booking doesn\'t show up here immediately, please come back later.';
+    res.locals.alert =
+      "Your booking was successful! Please check your email for a confirmation. If your booking doesn't show up here immediately, please come back later.";
   }
 
   next();
@@ -133,5 +134,57 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
   res.status(200).render('account', {
     title: 'Your account',
     user: updatedUser,
+  });
+});
+
+exports.getManageTours = catchAsync(async (req, res, next) => {
+  const tours = await Tour.find();
+
+  res.status(200).render('manageTours', {
+    title: 'Manage Tours',
+    tours,
+  });
+});
+
+exports.getManageUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).render('manageUsers', {
+    title: 'Manage Users',
+    users,
+  });
+});
+
+exports.getManageReviews = catchAsync(async (req, res, next) => {
+  const reviews = await Review.find()
+    .populate({
+      path: 'tour',
+      select: 'name',
+    })
+    .populate({
+      path: 'user',
+      select: 'name photo',
+    });
+
+  res.status(200).render('manageReviews', {
+    title: 'Manage Reviews',
+    reviews,
+  });
+});
+
+exports.getManageBookings = catchAsync(async (req, res, next) => {
+  const bookings = await Booking.find()
+    .populate({
+      path: 'tour',
+      select: 'name',
+    })
+    .populate({
+      path: 'user',
+      select: 'name email',
+    });
+
+  res.status(200).render('manageBookings', {
+    title: 'Manage Bookings',
+    bookings,
   });
 });
